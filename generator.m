@@ -1,7 +1,7 @@
 clc, clearvars, clear all
 
 dataFile = '/Users/Blanchards1/Documents/Round9/A2356run4.mat';
-outputFolder = '/Users/Blanchards1/Documents/FormulaSim/Output/R20Round4&5';
+outputFolder = '/Users/Blanchards1/Documents/FormulaSim/Output/MZOUT/R20Round4&5';
 
 idxRange50 = 5006:6220;
 idxRange100 = 7491:8645;
@@ -39,7 +39,7 @@ subTables.FZ250 = [runTable(idxRange250a, :); runTable(idxRange250b, :)];
 
 outNames = fieldnames(subTables);
 for i = 1:numel(outNames)
-    fname = fullfile(outputFolder, sprintf("R20_FZ_%s.csv", outNames{i}(3:end)));
+    fname = fullfile(outputFolder, sprintf("R20MZ_FZ_%s.csv", outNames{i}(3:end)));
     writetable(subTables.(outNames{i}), fname);
     disp("Saved: " + fname);
 end

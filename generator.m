@@ -1,7 +1,7 @@
 clc, clearvars, clear all
 
-dataFile = '/Users/Blanchards1/Documents/Round9/A2356run4.mat';
-outputFolder = '/Users/Blanchards1/Documents/FormulaSim/Output/MZOUT/R20Round4&5';
+dataFile = 'Inputs/A2356run4.mat';
+outputFolder = 'data/Outputs/R20Round4&5';
 
 idxRange50 = 5006:6220;
 idxRange100 = 7491:8645;

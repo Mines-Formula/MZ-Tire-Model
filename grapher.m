@@ -1,6 +1,6 @@
 clc, clearvars, clear all
 
-dataFolder = 'data/Outputs/R20Round4&5';
+dataFolder = 'data/Outputs/R20Round6';
 csvFiles = dir(fullfile(dataFolder, 'R20MZ_FZ_*_filtered.csv'));
 
 allData = table();
@@ -55,7 +55,7 @@ for i = 1:numel(FZValues)
     table = allData(allData.FZbin == FZVal, :);
 
     figSingle = figure('Name', sprintf('FZ_%d', FZVal), 'NumberTitle', 'off');
-    scatter(table.SlipAngle, table.AligningTorque, 5, 'MarkerFaceColor', colors(i,:), 'MarkerEdgeColor', 'none');
+    scatter(table.Index, table.AligningTorque, 5, 'MarkerFaceColor', colors(i,:), 'MarkerEdgeColor', 'none');
     grid on;
     xlabel('Slip Angle (deg)');
     ylabel('Lateral Force FY (N)');

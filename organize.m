@@ -1,6 +1,6 @@
 clc, clearvars, clear all
 
-dataFolder = 'data/Outputs/R20Round4&5';
+dataFolder = 'data/Outputs/R20Round6';
 
 csvFiles = dir(fullfile(dataFolder, "R20MZ_FZ_*.csv"));
 
@@ -33,20 +33,22 @@ for i = 1:numel(csvFiles)
     NF = filteredTable.NormalForce;
     SA = filteredTable.SlipAngle;
     CF = filteredTable.LateralForce;
+    MZ = filteredTable.AligningTorque;
 
     plot(t, NF, 'b-', 'LineWidth', 1.5); hold on;
     plot(t, SA, 'r-', 'LineWidth', 1.5);
     plot(t, CF, 'g-', 'LineWidth', 1.5);
+    plot(t, MZ, 'y-', 'LineWidth', 1.5);
     hold off;
 
     grid on;
     xlabel('Elapsed Time (s)');
     ylabel('Value');
     title(strrep(outName, '_', '\_'));
-    legend('Normal Force (N)', 'Slip Angle (deg)', 'Lateral Force (N)', 'Location', 'best');
+    legend('Normal Force (N)', 'Slip Angle (deg)', 'Lateral Force (N)', 'Aligning Torque', 'Location', 'best');
 
     saveas(gcf, fullfile(dataFolder, sprintf('%s_diagnostic_plot.png', name)));
-    close(gcf);
+    %close(gcf);
 
     disp("Plot saved: " + name + "_diagnostic_plot.png");
 end

@@ -1,14 +1,14 @@
 clc, clearvars, clear all
 
-dataFile = 'Inputs/A2356run4.mat';
-outputFolder = 'data/Outputs/R20Round4&5';
+dataFile = 'Inputs/A2356run6.mat';
+outputFolder = 'data/Outputs/R20Round6';
 
-idxRange50 = 5006:6220;
-idxRange100 = 7491:8645;
-idxRange150 = 3754:4937;
-idxRange200 = 2546:3667;
-idxRange250a = 1:2484;
-idxRange250b = 6255:7418;
+idxRange50 = 23698:24905;
+idxRange100 = 26192:27334;
+idxRange150 = 22439:23646;
+idxRange200 = 21195:22363;
+idxRange250a = 24933:26158;
+%idxRange250b = 19947:21171;
 
 curFile = load(dataFile);
 disp("Loaded " + dataFile);

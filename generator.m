@@ -3,9 +3,9 @@ clc, clearvars, clear all
 dataFile = 'Inputs/A2356run6.mat';
 outputFolder = 'data/Outputs/R20Round6';
 
-idxRange50 = 23698:24905;
-idxRange100 = 26192:27334;
-idxRange150 = 22439:23646;
+%idxRange50 = 23698:24905;
+idxRange100 = 26764:27082;
+idxRange150 = 22999:23337;
 idxRange200 = 21662:22096;
 idxRange250a = 25379:25829;
 %idxRange250b = 19947:21171;
@@ -31,7 +31,7 @@ disp("Run table created with " + height(runTable) + " rows.");
 
 subTables = struct();
 
-subTables.FZ50 = runTable(idxRange50, :);
+%subTables.FZ50 = runTable(idxRange50, :);
 subTables.FZ100 = runTable(idxRange100, :);
 subTables.FZ150 = runTable(idxRange150, :);
 subTables.FZ200 = runTable(idxRange200, :);

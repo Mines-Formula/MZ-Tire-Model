@@ -1,14 +1,15 @@
 clc, clearvars, clear all
 
-dataFile = 'Inputs/A2356run6.mat';
-outputFolder = 'data/Outputs/R20Round6';
+dataFile = 'Inputs/A2356run4.mat'; % Change this to round you want
+outputFolder = 'data/Outputs/R20Round4&5'; % Change this to output you want
 
-idxRange50 = 23698:24905;
-idxRange100 = 26192:27334;
-idxRange150 = 22439:23646;
-idxRange200 = 21195:22363;
-idxRange250a = 24933:26158;
-idxRange250b = 19947:21171;
+% Change these based off of inclination angle/tire type (see Teams)
+idxRange50 = 5006:6220;
+idxRange100 = 7491:8645;
+idxRange150 = 3754:4937;
+idxRange200 = 2546:3667;
+idxRange250a = 1:2484;
+idxRange250b = 6255:7418;
 
 curFile = load(dataFile);
 disp("Loaded " + dataFile);
@@ -35,7 +36,7 @@ subTables.FZ50 = runTable(idxRange50, :);
 subTables.FZ100 = runTable(idxRange100, :);
 subTables.FZ150 = runTable(idxRange150, :);
 subTables.FZ200 = runTable(idxRange200, :);
-subTables.FZ250 = [runTable(idxRange250a, :); runTable(idxRange250b, :);];
+subTables.FZ250 = [runTable(idxRange250a, :); runTable(idxRange250b, :)];
 
 outNames = fieldnames(subTables);
 for i = 1:numel(outNames)

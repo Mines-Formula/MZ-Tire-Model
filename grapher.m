@@ -1,6 +1,6 @@
 clc, clearvars, clear all
 
-dataFolder = 'data/Outputs/R20Round6';
+dataFolder = 'data/Outputs/R20Round4&5';
 csvFiles = dir(fullfile(dataFolder, 'R20MZ_FZ_*_filtered.csv'));
 
 allData = table();

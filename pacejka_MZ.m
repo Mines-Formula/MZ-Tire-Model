@@ -19,9 +19,9 @@ qDz9 = P(15);
 df = Fz ./ max(Fz);
 gamma_star = gamma;
 
-SHt = qHz1 + qHz2.*df.^2 + (qHz3 + qHz4.*df.^2).*gamma_star;
+SHt = qHz1 + qHz2 .* df.^2 + (qHz3 + qHz4 .* df.^2) .* gamma_star;
 
 alpha_t alpha + SHt;
 
-Dt = (Dt1.*Fz + Dt2);
-t0 = Dt .* cos(Ct.*atan(Bt.*alpha_t - Et.*(Bt.*alpha_t - atan(Bt.*alpha_t)) ) ) .* cos(alpha);
+Dt = (Dt1 .* Fz + Dt2);
+t0 = Dt .* cos(Ct.*atan(Bt .* alpha_t - Et .* (Bt .* alpha_t - atan(Bt .* alpha_t)))) .* cos(alpha);

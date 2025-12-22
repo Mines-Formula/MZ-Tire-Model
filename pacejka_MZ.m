@@ -1,0 +1,20 @@
+function [Mz_pred, Kza0, Kzg0] = pacejka_MZ(P, Fz, alpha, gamma, Fy0, Kya0, R0)
+
+Bt = P(1);
+Ct = P(2);
+Dt1 = P(3);
+Dt2 = P(4);
+Et = P(5);
+Br = P(6);
+Cr = P(7);
+Dr1 = P(8);
+Dr2 = P(9);
+qHz1 = P(10);
+qHz2 = P(11);
+qHz3 = P(12);
+qHz4 = P(13);
+qDz8 = P(14);
+qDz9 = P(15);
+
+df = Fz ./ max(Fz);
+gamma_star = gamma;

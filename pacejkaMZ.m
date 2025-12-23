@@ -23,4 +23,19 @@ Bt = (P(7) .* (1 + P(11) .* dfz)) ./ (Ct .* Dt) .* L(4);
 x_t = Bt .* alphaT;
 t = Dt .* cos(Ct .* atan(x_t - Et .* (x_t - atan(x_t))));
 
+%4.E41
+Cr = P(12) .* L(7);
+
+%4.E42
+Dr = (P(13) + P(14) .* dfz) .* FZ .* L(6);
+
+%4.E43-44
+Br = P(15) ./ Cr .* L(8);
+
+%4.E45-47
+Mzr = Dr .* cos(Cr .* atan(Br .* alpha));
+
+%Final
+MZ = -t .* FYexp + Mzr;
+
 end

@@ -31,3 +31,5 @@ Mz0_prime = -t0 .* Fy0;
 alpha_r = alpha;
 Dr = (Dr1 .* Fz + Dr2);
 Mzr0 = Dr .* cos(Cr .* atan(Br .* alpha_r));
+
+Mz_pred = Mz0_prime + Mzr0;

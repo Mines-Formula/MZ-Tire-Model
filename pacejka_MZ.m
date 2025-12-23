@@ -16,6 +16,8 @@ qHz3 = P(12);
 qHz4 = P(13);
 qDz8 = P(14);
 qDz9 = P(15);
+qDz3 = P(16);
+qDz4 = P(17);
 
 %Normalized Load and camber
 df = Fz ./ max(Fz); % normalized load
@@ -25,11 +27,15 @@ gamma_star = gamma; % normalized camber
 SHt = qHz1 + qHz2 .* df.^2 + (qHz3 + qHz4 .* df.^2) .* gamma_star;
 
 %4.E37
-alpha_t alpha + SHt;
+alpha_t = alpha + SHt;
+
+%4.E43
+Dt0 = (Dt1 .* Fz + Dt2);
+zeta5 = 1;
+Dt = Dt0 .* (1 + qDz3 .* gamma_star + qDz4 .* gamma_star.^2) .* zeta5;
 
 %4.E33
-Dt = (Dt1 .* Fz + Dt2);
-t0 = Dt .* cos(Ct.*atan(Bt .* alpha_t - Et .* (Bt .* alpha_t - atan(Bt .* alpha_t)))) .* cos(alpha);
+t0 = Dt .* cos(Ct .* atan(Bt.*alpha_t - Et.*(Bt.*alpha_t - atan(Bt.*alpha_t)))) .* cos(alpha);
 
 %4.E32
 Mz0_prime = -t0 .* Fy0;

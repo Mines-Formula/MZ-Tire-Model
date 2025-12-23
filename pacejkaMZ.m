@@ -1,4 +1,4 @@
-function [Mz_pred, Kza0, Kzg0] = pacejka_MZ(P, Fz, alpha, gamma, Fy0, Kya0, R0)
+function [Mz_pred, Kza0, Kzg0] = pacejkaMZ(P, Fz, alpha, gamma, Fy0, Kya0, R0)
 
 %Parameters
 Bt = P(1);

@@ -33,3 +33,9 @@ Dr = (Dr1 .* Fz + Dr2);
 Mzr0 = Dr .* cos(Cr .* atan(Br .* alpha_r));
 
 Mz_pred = Mz0_prime + Mzr0;
+
+Kza0 = Dt .* Kya0;
+
+Kzg0 = Fz .* R0 .* (qDz8 + qDz9 .* df.^2);
+
+end

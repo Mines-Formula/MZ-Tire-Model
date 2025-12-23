@@ -25,3 +25,6 @@ alpha_t alpha + SHt;
 
 Dt = (Dt1 .* Fz + Dt2);
 t0 = Dt .* cos(Ct.*atan(Bt .* alpha_t - Et .* (Bt .* alpha_t - atan(Bt .* alpha_t)))) .* cos(alpha);
+
+Mz0_prime = -t0 .* Fy0;
+

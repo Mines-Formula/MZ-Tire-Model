@@ -27,7 +27,7 @@ gamma_star = gamma; % normalized camber
 SHt = qHz1 + qHz2 .* df.^2 + (qHz3 + qHz4 .* df.^2) .* gamma_star;
 
 %4.E37
-alpha_r = alpha_star + SHt;
+alpha_r = alpha_star + SHt; % apparently also equals alpha_f? Not sure what that is for
 
 %4.E34
 alpha_t = alpha_star + SHt
@@ -55,5 +55,21 @@ Kza0 = Dt .* Kya0;
 
 %4.E49
 Kzg0 = Fz .* R0 .* (qDz8 + qDz9 .* df.^2);
+
+%4.E39
+K_prime_yAlpha = Kya + epsilon_k; % Not sure what epsilon+k is, it just shows up and then is never used again
+
+%4.E38
+SHf = SHy + SVy / K_prime_yAlpha;
+
+%4.E40
+Bt = (qBz1 + qBz2 .* fz + qBz3 + fz.^2) .* (1.+qBz4.*gamma_star + qBz5 .* abs(gamma_star)) .* gamma_Ky_alpha ./ gamma_mu_y; %Must be greater than zero
+
+%4.E41
+Ct = qCz1; % Must be greater than zero
+
+
+
+
 
 end

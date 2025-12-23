@@ -30,9 +30,6 @@ SHt = qHz1 + qHz2 .* df.^2 + (qHz3 + qHz4 .* df.^2) .* gamma_star;
 alpha_r = alpha_star + SHt;
 
 %4.E34
-qHy = 0;
-SHy = qHy .* df;
-alpha_star = alpha + SHy;
 alpha_t = alpha_star + SHt
 
 %4.E43
@@ -47,9 +44,8 @@ t0 = Dt .* cos(Ct .* atan(Bt.*alpha_t - Et.*(Bt.*alpha_t - atan(Bt.*alpha_t)))) 
 Mz0_prime = -t0 .* Fy0;
 
 %4.E36
-alpha_r = alpha;
-Dr = (Dr1 .* Fz + Dr2);
-Mzr0 = Dr .* cos(Cr .* atan(Br .* alpha_r));
+Dr = (Dr1 .* Fz + Dr2); % This one needs to be double checked
+Mzr0 = Dr .* cos(Cr .* atan(Br .* alpha_r)); % This is correct, just trying to figure out definitions for the parameters.
 
 %4.E31
 Mz0 = Mz0_prime + Mzr0;

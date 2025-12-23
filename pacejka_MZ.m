@@ -19,6 +19,9 @@ qDz9 = P(15);
 qDz3 = P(16);
 qDz4 = P(17);
 
+%If anybody moves anything in this repo PLEASE put what equation from the
+%textbook you are referencing when you do!!!
+
 %Normalized Load and camber
 df = Fz ./ max(Fz); % normalized load
 gamma_star = gamma; % normalized camber
@@ -69,7 +72,8 @@ Bt = (qBz1 + qBz2 .* fz + qBz3 + fz.^2) .* (1.+qBz4.*gamma_star + qBz5 .* abs(ga
 Ct = qCz1; % Must be greater than zero
 
 
-
+%4.E42
+Dt0 = Fz .* (R0 / F_prime_z0) .* ( qDz1 + qDz2 .* Fz) .* gamma_t * sgnV_cx; % Not sure what any of this means.  Asking Brennan.
 
 
 end

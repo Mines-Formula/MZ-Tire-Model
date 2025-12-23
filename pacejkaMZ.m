@@ -10,6 +10,7 @@ alphaT = alpha + Sht;
 %4.E33
 Ct = P(4) .* L(2);
 
-
+%4.E34
+Dt = (P(5) + P(6) .* dfz) .* (FZ ./ P(1)) .* L(3);
 
 end

@@ -19,6 +19,8 @@ Et = (P(8)+ P(9) .* dfz) .* (1 - P(10) .* sign(alphaT)) .* L(5);
 %4.E36-4.E38
 Bt = (P(7) .* (1 + P(11) .* dfz)) ./ (Ct .* Dt) .* L(4);
 
-
+%4.E39-4.E40
+x_t = Bt .* alphaT;
+t = Dt .* cos(Ct .* atan(x_t - Et .* (x_t - atan(x_t))));
 
 end

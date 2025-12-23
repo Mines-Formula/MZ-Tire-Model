@@ -27,7 +27,13 @@ gamma_star = gamma; % normalized camber
 SHt = qHz1 + qHz2 .* df.^2 + (qHz3 + qHz4 .* df.^2) .* gamma_star;
 
 %4.E37
-alpha_t = alpha + SHt;
+alpha_r = alpha_star + SHt;
+
+%4.E34
+qHy = 0;
+SHy = qHy .* df;
+alpha_star = alpha + SHy;
+alpha_t = alpha_star + SHt
 
 %4.E43
 Dt0 = (Dt1 .* Fz + Dt2);
@@ -46,7 +52,7 @@ Dr = (Dr1 .* Fz + Dr2);
 Mzr0 = Dr .* cos(Cr .* atan(Br .* alpha_r));
 
 %4.E31
-Mz_pred = Mz0_prime + Mzr0;
+Mz0 = Mz0_prime + Mzr0;
 
 %4.E48
 Kza0 = Dt .* Kya0;

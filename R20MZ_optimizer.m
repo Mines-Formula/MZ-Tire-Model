@@ -44,3 +44,16 @@ P0(12) = 1.0; % Cr
 P0(13) = 0.01; % Dr
 
 L = ones(1,8);
+
+objFun = @(P) MzExperimental_all(P, L, FZAll, IAAll, alphaAll, FYAll, MzAll);
+options = optimoption('lsqnonlin', 'Display', 'iter', 'MaxFunctionEvaluations', 30000, 'TolFun', 1e-8, 'TolX', 1e-8);
+
+lb = -Inf(size(P0));
+ub = Inf(size(P0));
+
+lb(1) = 250;
+ub(1) = 250;
+
+POptimization = lsqnonlin(objFun, P0, lb, ub, options);
+disp('Optimized Mz Parameters:')
+disp(POptimization)

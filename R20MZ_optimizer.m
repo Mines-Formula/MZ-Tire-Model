@@ -1,21 +1,21 @@
 clc, clearvars, close all
 
-data0 = readtable('data/Outputs/R20Round4&5/R20MZ_combined_filtered.csv');
-data2 = readtable('data/Outputs/R20Round4&5/R20MZ_IA-2_combined_filtered.csv');
-data4 = readtable('data/Outputs/R20Round4&5/R20MZ_IA-4_combined_filtered.csv');
+data0 = readtable('data/Outputs/R20Round4&5/R20MZ_combined_IA-0_filtered.csv');
+data2 = readtable('data/Outputs/R20Round4&5/R20MZ_combined_IA-0_filtered.csv');
+data4 = readtable('data/Outputs/R20Round4&5/R20MZ_combined_IA-0_filtered.csv');
 data  = [data0; data2; data4];
 
 %These are different than the FY optimizer so pay attention
 IA = data{:,3};
 FZRaw = data{:,4};
 alpha = data{:,5};
-MZ = data{:,7};
+MzExperimental = data{:,7};
 FYExperimental = data{:,8};
 source = data{:,10};
 
 FZBins = [50, 100, 150, 200, 250];
 
-MZAll = [];
+MzAll = [];
 FYAll = [];
 FZAll = [];
 alphaAll = [];

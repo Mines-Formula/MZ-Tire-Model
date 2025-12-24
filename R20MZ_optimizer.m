@@ -95,3 +95,7 @@ fprintf('[');
 fprintf('%g, ', POtimization(1:end-1));
 fprint('%g]\n', POptimization(end));
 
+function err = MzExperimental_all(P, L, FZ, IA, alpha, FYexp, MzExp)
+    MzModel = pacejkaMz(P, L, FZ, IA, alpha, FYexp);
+    err = MZModel - MzExp;
+end

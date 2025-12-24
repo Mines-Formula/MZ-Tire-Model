@@ -36,7 +36,7 @@ subTables.FZ50 = runTable(idxRange50, :);
 subTables.FZ100 = runTable(idxRange100, :);
 subTables.FZ150 = runTable(idxRange150, :);
 subTables.FZ200 = runTable(idxRange200, :);
-subTables.FZ250 = [runTable(idxRange250a, :); runTable(idxRange250b);];
+subTables.FZ250 = [runTable(idxRange250a, :); runTable(idxRange250b, :)];
 
 outNames = fieldnames(subTables);
 for i = 1:numel(outNames)

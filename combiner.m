@@ -1,6 +1,6 @@
 clc, clearvars, clear all
 
-dataFolder = 'data/Outputs/R20Round6';
+dataFolder = 'data/Outputs/R20Round4&5';
 
 filteredFiles = dir(fullfile(dataFolder, '*_filtered.csv'));
 

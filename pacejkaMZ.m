@@ -10,7 +10,7 @@ Bt = (P(7) .* (1 + P(12).*dfz)) ./ (Ct .* Dt) .* L(4); %4.E36-38
 xt = Bt .* alpha_t %4.E39-4.E40
 t = Dt .* cos( Ct .* atan(xt - Et .* (xt - atan(xt))));
 Cr = P(13) .* L(6); %4.E41
-Dr(P(14) + P(15).*dfz) .* FZ .* L(7); %4.E42
+Dr = (P(14) + P(15).*dfz) .* FZ .* L(7); %4.E42
 Br = P(16) ./ Cr .* L(8); %4.E43-4.E44
 Mzr = Dr .* cos(Cr .* atan(Br .* alpha)); %r.E45-47
 

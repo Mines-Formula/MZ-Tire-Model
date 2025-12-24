@@ -87,4 +87,11 @@ for k = 1:numel(IAValues)
 
     title(sprintf('Pacejka Mz Fit - IA = %d (RMSE = %.3f)', IAValues(k), rmse));
     xlabel('Slip Angle [deg]');
-    
+    ylabel('Aligning Torque Mz');
+    legend('Location', 'best');
+end
+
+fprintf('[');
+fprintf('%g, ', POtimization(1:end-1));
+fprint('%g]\n', POptimization(end));
+

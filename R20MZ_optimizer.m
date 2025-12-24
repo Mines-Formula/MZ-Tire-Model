@@ -55,5 +55,12 @@ lb(1) = 250;
 ub(1) = 250;
 
 POptimization = lsqnonlin(objFun, P0, lb, ub, options);
-disp('Optimized Mz Parameters:')
-disp(POptimization)
+disp('Optimized Mz Parameters:');
+disp(POptimization);
+
+MzPredicted = pacejkaMZ(POptimization, L, FZAll, IAAll, alphaAll, FYAll);
+
+rmse = sqrt(mean((MzAll - MzPredicted).^2));
+fprintf('Overall RMSE (Mz): %.4f Nm\n', rmse);
+
+IAValues = [0, 2, 4];

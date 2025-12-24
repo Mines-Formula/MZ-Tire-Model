@@ -2,7 +2,7 @@ clc, clearvars, clear all
 
 dataFolder = 'data/Outputs/R20Round4&5';
 
-filteredFiles = dir(fullfile(dataFolder, '*_filtered.csv'));
+filteredFiles = dir(fullfile(dataFolder, 'R20MZ_FZ_*_filtered.csv'));
 
 combinedTable = table();
 

@@ -13,3 +13,15 @@ MZ = data{:,7};
 FYExperimental = data{:,8};
 source = data{:,10};
 
+FZBins = [50, 100, 150, 200, 250];
+
+MZAll = [];
+FYAll = [];
+FZAll = [];
+alphaAll = [];
+IAAll = [];
+
+for i = 1:numel(FZBins)
+    baseTag = sprintf('R20_FZ_%d', FZBins(i));
+
+    idx = contains(source, [baseTag '_filtered']) | contains(source, [baseTag '_IA-2_filtered']) | contains(source, [baseTag '_IA-4_filtered']);

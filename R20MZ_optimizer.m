@@ -64,3 +64,27 @@ rmse = sqrt(mean((MzAll - MzPredicted).^2));
 fprintf('Overall RMSE (Mz): %.4f Nm\n', rmse);
 
 IAValues = [0, 2, 4];
+colors = lines(numel(FZBins));
+
+for k = 1:numel(IAValues)
+    figure;
+    hold on;
+    grid on;
+
+    thisIA = deg2rad(IAValues(k));
+    idxIA = abs(IAAll - thisIA) < 1e-6;
+
+    for i = 1:numel(FZBins)
+        idx = idxIA & (FZAll == FZBins(i));
+
+        scatter(rad2deg(alphaAll(idx)), MzAll(idx), 6, colors(i,:), 'filled', 'DisplayName', sprintf('Exp FZ=%d', FZBins(i)));
+
+        [alphaSort, ord] = sort(alphaAll(id));
+        MzFit = pacejkaMz(POptimization, L, FZAll(idx), IAAll(idx), alphaSort, FYAll(idx));
+
+        plot(rad2deg(alphaSort), MZFit, 'Color', colors(i,:), 'LineWidth', 1.5, 'DisplayName', sprintf('Fit FZ=%d', FZBins(i)));
+    end
+
+    title(sprintf('Pacejka Mz Fit - IA = %d (RMSE = %.3f)', IAValues(k), rmse));
+    xlabel('Slip Angle [deg]');
+    

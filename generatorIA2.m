@@ -40,7 +40,7 @@ subTables.FZ250 = runTable(idxRange250a, :);
 
 outNames = fieldnames(subTables);
 for i = 1:numel(outNames)
-    fname = fullfile(outputFolder, sprintf("R20MZ_IA-2_FZ_%s.csv", outNames{i}(3:end)));
+    fname = fullfile(outputFolder, sprintf("R20MZ_FZ_%s_IA-2.csv", outNames{i}(3:end)));
     writetable(subTables.(outNames{i}), fname);
     disp("Saved: " + fname);
 end

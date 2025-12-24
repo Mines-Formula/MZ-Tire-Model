@@ -2,7 +2,7 @@ clc, clearvars, clear all
 
 dataFolder = 'data/Outputs/R20Round4&5';
 
-csvFiles = dir(fullfile(dataFolder, "R20MZ_IA-4_FZ_*.csv"));
+csvFiles = dir(fullfile(dataFolder, "R20MZ_FZ_*.csv"));
 
 for i = 1:numel(csvFiles)
     curFile = fullfile(csvFiles(i).folder, csvFiles(i).name);

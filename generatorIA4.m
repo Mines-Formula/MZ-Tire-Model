@@ -5,11 +5,11 @@ outputFolder = 'data/Outputs/R20Round4&5'; % Change this to output you want
 
 % Change these based off of inclination angle/tire type (see Teams)
 idxRange50 = 17450:18674;
-idxRange100 = 27433:28640;
-idxRange150 = 23681:24900;
-idxRange200 = 22438:23655;
-idxRange250a = 21192:22414;
-idxRange250b = 26177:27399;
+idxRange100 = 19942:21169;
+idxRange150 = 16205:17419;
+idxRange200 = 14961:16162;
+idxRange250a = 18696:19922;
+%idxRange250b = 26177:27399;
 
 curFile = load(dataFile);
 disp("Loaded " + dataFile);
@@ -36,7 +36,7 @@ subTables.FZ50 = runTable(idxRange50, :);
 subTables.FZ100 = runTable(idxRange100, :);
 subTables.FZ150 = runTable(idxRange150, :);
 subTables.FZ200 = runTable(idxRange200, :);
-subTables.FZ250 = [runTable(idxRange250a, :); runTable(idxRange250b, :)];
+subTables.FZ250 = runTable(idxRange250a, :);
 
 outNames = fieldnames(subTables);
 for i = 1:numel(outNames)

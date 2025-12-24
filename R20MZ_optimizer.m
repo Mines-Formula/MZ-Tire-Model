@@ -97,5 +97,5 @@ fprint('%g]\n', POptimization(end));
 
 function err = MzExperimental_all(P, L, FZ, IA, alpha, FYexp, MzExp)
     MzModel = pacejkaMZ(P, L, FZ, IA, alpha, FYexp);
-    err = MZModel - MzExp;
+    err = MzModel - MzExp;
 end

@@ -24,4 +24,12 @@ IAAll = [];
 for i = 1:numel(FZBins)
     baseTag = sprintf('R20_FZ_%d', FZBins(i));
 
-    idx = contains(source, [baseTag '_filtered']) | contains(source, [baseTag '_IA-2_filtered']) | contains(source, [baseTag '_IA-4_filtered']);
+    idx = contains(source, [baseTag '_IA-0_filtered']) | contains(source, [baseTag '_IA-2_filtered']) | contains(source, [baseTag '_IA-4_filtered']);
+
+    MzAll = [MzAll; MzExperimental(idx)];
+    FYAll = [FYAll; FYExperimental(idx)];
+    FZAll = [FZAll; FZBins(i) * ones(sum(idx),1)];
+    alphaAll = [alphaAll; alpha(idx)];
+    IAAll = [IAAll; IA(idx)];
+end
+

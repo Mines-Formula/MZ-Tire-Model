@@ -46,7 +46,7 @@ P0(13) = 0.01; % Dr
 L = ones(1,8);
 
 objFun = @(P) MzExperimental_all(P, L, FZAll, IAAll, alphaAll, FYAll, MzAll);
-options = optimoption('lsqnonlin', 'Display', 'iter', 'MaxFunctionEvaluations', 30000, 'TolFun', 1e-8, 'TolX', 1e-8);
+options = optimoptions('lsqnonlin', 'Display', 'iter', 'MaxFunctionEvaluations', 30000, 'TolFun', 1e-8, 'TolX', 1e-8);
 
 lb = -Inf(size(P0));
 ub = Inf(size(P0));
@@ -96,6 +96,6 @@ fprintf('%g, ', POtimization(1:end-1));
 fprint('%g]\n', POptimization(end));
 
 function err = MzExperimental_all(P, L, FZ, IA, alpha, FYexp, MzExp)
-    MzModel = pacejkaMz(P, L, FZ, IA, alpha, FYexp);
+    MzModel = pacejkaMZ(P, L, FZ, IA, alpha, FYexp);
     err = MZModel - MzExp;
 end

@@ -2,7 +2,7 @@ clc, clearvars, clear all
 
 dataFolder = 'data/Outputs/R20Round4&5';
 
-csvFiles = dir(fullfile(dataFolder, "R20MZ_FZ_*.csv"));
+csvFiles = dir(fullfile(dataFolder, "R20MZ_IA-2_FZ_*.csv"));
 
 for i = 1:numel(csvFiles)
     curFile = fullfile(csvFiles(i).folder, csvFiles(i).name);
@@ -17,7 +17,7 @@ for i = 1:numel(csvFiles)
     table.InclinationAngle = floor(table.InclinationAngle * 10) / 10;
 
     table = sortrows(table, ["RoadSpeed", "TirePressure", "InclinationAngle"]);
-    filteredTable = table(table.InclinationAngle == 0 & table.RoadSpeed == 25 & table.TirePressure == 12, :);
+    filteredTable = table(table.InclinationAngle == 2 & table.RoadSpeed == 25 & table.TirePressure == 12, :);
 
     filteredTable = sortrows(filteredTable, "ElapsedTime");
 

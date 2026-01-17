@@ -7,7 +7,13 @@ function MZ0 = pacejkaMZ(P, L, FZ, IA, alpha, FY);
 
 dfz = (FZ - 250) / 250; % 4.E1
 
-alpha_star = tan(alpha) * sign(Vcx) %4.E3, may be replaced with alpha_star = -(Vcy / abs(Vcx))
+alpha_star = tan(alpha) * sign(Vcx); %4.E3, may be replaced with alpha_star = -(Vcy / abs(Vcx))
+
+SHt = Q(1) + (Q(2) * dfz) + (Q(3) + (Q(4) * dfz)) * sin(IA); % 4.E35
+
+MZr0 = Dr * cos(Cr * atan(Br * alpha_r)); % 4.E36
+
+alpha_t = alpha_star + SHt; % 4.E34
 
 t0 = Dt * cos(Ct * atan((Bt * alpha_t) - Et * ((Bt * alpha_t) - atan(Bt * alpha_t)))) * (Vcx / (Vc + 0.1)); % 4.E33, Definition of cos'(alpha) found in 4.E6-4.E7
 

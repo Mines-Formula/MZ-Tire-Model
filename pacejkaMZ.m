@@ -5,7 +5,9 @@ function MZ0 = pacejkaMZ(P, L, FZ, IA, alpha, FY);
 %Q = [0.007, -0.002, 0.147, 0.004, 8.964, -1.106, -0.842, 0, -0.227, 1.180, 0.1, -0.001, 0.007, 13.05, -1.609, -0.359, 0, 0.174, -0.896, 0, -0.008, 0, -0.296, -0.009];
 %L = [1, 1, 1, 1, 1, 1, 1, 1];
 
+dfz = (FZ - 250) / 250; % 4.E1
 
+alpha_star = tan(alpha) * sign(Vcx) %4.E3, may be replaced with alpha_star = -(Vcy / abs(Vcx))
 
 t0 = Dt * cos(Ct * atan((Bt * alpha_t) - Et * ((Bt * alpha_t) - atan(Bt * alpha_t)))) * (Vcx / (Vc + 0.1)); % 4.E33, Definition of cos'(alpha) found in 4.E6-4.E7
 

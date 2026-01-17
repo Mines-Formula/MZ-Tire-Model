@@ -7,7 +7,7 @@ function MZ0 = pacejkaMZ(P, L, FZ, IA, alpha, FY);
 
 
 
-t0 = Dt * cos(Ct * atan((Bt * alpha_t) - Et * ((Bt * alpha_t) - atan(Bt * alpha_t)))) * (Vcx / V_prime_c); % 4.E33
+t0 = Dt * cos(Ct * atan((Bt * alpha_t) - Et * ((Bt * alpha_t) - atan(Bt * alpha_t)))) * (Vcx / (Vc + 0.1)); % 4.E33, Definition of cos'(alpha) found in 4.E6-4.E7
 
 MZ0_prime = -t0 * FY; % 4.E32
 

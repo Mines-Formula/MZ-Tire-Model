@@ -11,7 +11,17 @@ alpha_star = tan(alpha) * sign(Vcx); %4.E3, may be replaced with alpha_star = -(
 
 SHt = Q(1) + (Q(2) * dfz) + (Q(3) + (Q(4) * dfz)) * sin(IA); % 4.E35
 
-MZr0 = 
+SHf = SHy + (SVy / (Kya + 0.1)); % 4.E38-39
+
+alpha_r = alpha_star * SHf; % 4.E37
+
+Br = Q(20) * By * Cy; % 4.E45
+
+Cr = 1; % 4.E36 Using the zeta definition on page 185
+
+Dr = FZ * Ro * ((Q(21) + (Q(22) )))
+
+MZr0 = Dr * cos(Cr * atan(Br * alpha_r)); % 4.E36
 
 alpha_t = alpha_star + SHt; % 4.E34
 

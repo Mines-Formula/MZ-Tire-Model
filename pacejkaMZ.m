@@ -25,10 +25,22 @@ MZr0 = Dr * cos(Cr * atan(Br * alpha_r)); % 4.E36
 
 alpha_t = alpha_star + SHt; % 4.E34
 
-Bt = (Q(5) + (Q(6) * dfz) + (Q(7) * dfz^2)) * (1 + (Q(7) * sin(IA)) + (Q(8) * abs(sinIA))); % 4.E40
+Bt = (Q(5) + (Q(6) * dfz) + (Q(7) * dfz^2)) * (1 + (Q(8) * sin(IA)) + (Q(9) * abs(sinIA))); % 4.E40
+
+Ct = Q(10) % 4.E41
+
+Dt0 = FZ * (R0 / FZ) * (Q(11) + (Q(12) * dfz)) * sign(Vcx); % 4.E42
+
+Dt = Dt0 * (1 + (Q(13) * sin(IA)) + (Q(14) * (sin(IA)^2))); % 4.E43
+
+Et = (Q(15) + (Q(16) * dfz) + (Q(17) * dfz^2)) * (1 + (Q(18) + (Q(19) * sin(IA))) * (2/pi) * atan(Bt * Ct * alpha_t)); % 4.E44
 
 t0 = Dt * cos(Ct * atan((Bt * alpha_t) - Et * ((Bt * alpha_t) - atan(Bt * alpha_t)))) * (Vcx / (Vc + 0.1)); % 4.E33, Definition of cos'(alpha) found in 4.E6-4.E7
 
 MZ0_prime = -t0 * FY; % 4.E32
 
 MZ0 = MZ0_prime + Mzr0; % 4.E31
+
+Kzao = Dt0 * Kyao; % 4.E48 I'm going to be honest, I don't know what this does but it's the book so *shrug*
+
+Kzyo = FZ * R0 * (Q(23) + (Q(24) * dfz)) - Dt0 * Kyy0; %4.E49 Again, stuff just shows up without explanation.  May incorporate values from the previous pacejka.m?

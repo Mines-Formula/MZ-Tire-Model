@@ -1,4 +1,4 @@
-function MZ0 = pacejkaMZ(Q, L, FZ, IA, alpha, FY);
+function MZ0 = pacejkaMZ(P, Q, L, FZ, IA, alpha, FY);
 
 % inputs 24 Q coefficients,
 % Estimated coefficients are as follows (found in Appen:

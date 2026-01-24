@@ -32,7 +32,7 @@ alpha_star = tan(alpha) .* sign(Vcx); %4.E3, may be replaced with alpha_star = -
 
 SHt = Q(1) + (Q(2) .* dfz) + (Q(3) + (Q(4) .* dfz)) .* sin(IA); % 4.E35
 
-SHf = SHy + (SVy ./ (Kya + 0.1)); % 4.E38-39
+SHf = Shy + (Svy ./ (Kya + 0.1)); % 4.E38-39
 
 alpha_r = alpha_star .* SHf; % 4.E37
 

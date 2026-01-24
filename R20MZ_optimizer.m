@@ -1,10 +1,10 @@
 clc, clearvars, close all
 
 data0 = readtable('data/Outputs/R20Round4&5/R20MZ_combined_IA-0_filtered.csv');
-%data2 = readtable('data/Outputs/R20Round4&5/R20MZ_combined_IA-0_filtered.csv');
-%data4 = readtable('data/Outputs/R20Round4&5/R20MZ_combined_IA-0_filtered.csv');
-%data  = [data0; data2; data4];
-data = data0;
+data2 = readtable('data/Outputs/R20Round4&5/R20MZ_combined_IA-2_filtered.csv');
+data4 = readtable('data/Outputs/R20Round4&5/R20MZ_combined_IA-4_filtered.csv');
+data  = [data0; data2; data4];
+%data = data2;
 
 %These are different than the FY optimizer so pay attention
 IA = data{:,3};
@@ -41,7 +41,7 @@ P_fixed = [250, 1.4, 2.4, -0.25, 3, -0.1, -1.5, 0, 0, -30.5, 1.15, 1, 0, 0, -0.1
 L = ones(1,8);
 
 % Initial Q guess from Appendix 3
-Q0 = [0.007, -0.002, 0.147, 0.004, 8.964, -1.106, -0.842, 0, -0.227, 1.180, 0.1, -0.001, 0.007, 13.05, -1.609, -0.359, 0, 0.174, -0.896, 0, -0.008, 0, -0.296, -0.009];
+Q0 = [0.00276055, 0.00667048, 0.339315, -1.15563, 9.07658, -8.19445, -11.5486, -20.4342, 21.4985, 1.44589, 0.0184206, 0.0141927, 2.24868, -20.2342, 0.337115, -0.984545, -1.95786, 0.122852, -19.6941, -3.55172e-05, -0.000452427, 0.00165919, 0.295113, -0.375074];
 
 objFun = @(Q) MzExperimental_all(P_fixed, Q, L, FZAll, IAAll, alphaAll, FYAll, MzAll);
 

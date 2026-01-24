@@ -23,7 +23,7 @@ alphaAll = [];
 IAAll = [];
 
 for i = 1:numel(FZBins)
-    baseTag = sprintf('R20_FZ_%d', FZBins(i));
+    baseTag = sprintf('R20MZ_FZ_%d', FZBins(i));
 
     idx = contains(source, [baseTag '_IA-0_filtered']) | contains(source, [baseTag '_IA-2_filtered']) | contains(source, [baseTag '_IA-4_filtered']);
 
@@ -55,7 +55,7 @@ QOptimization = lsqnonlin(objFun, Q0, lb, ub, options);
 disp('Optimized Q (Mz) Parameters:');
 disp(QOptimization);
 
-MzPredicted = pacejkaMZ(POptimization, Q, L, FZAll, IAAll, alphaAll, FYAll);
+MzPredicted = pacejkaMZ(P_fixed, QOptimization, L, FZAll, IAAll, alphaAll, FYAll);
 
 rmse = sqrt(mean((MzAll - MzPredicted).^2));
 fprintf('Overall RMSE (Mz): %.4f Nm\n', rmse);
@@ -77,7 +77,7 @@ for k = 1:numel(IAValues)
         scatter(rad2deg(alphaAll(idx)), MzAll(idx), 6, colors(i,:), 'filled', 'DisplayName', sprintf('Exp FZ=%d', FZBins(i)));
 
         [alphaSort, ord] = sort(alphaAll(idx));
-        MzFit = pacejkaMZ(POptimization, Q, L, FZAll(idx), IAAll(idx), alphaSort, FYAll(idx));
+        MzFit = pacejkaMZ(P_fixed, QOptimization, L, FZAll(idx), IAAll(idx), alphaSort, FYAll(idx));
 
         plot(rad2deg(alphaSort), MzFit, 'Color', colors(i,:), 'LineWidth', 1.5, 'DisplayName', sprintf('Fit FZ=%d', FZBins(i)));
     end
@@ -89,8 +89,8 @@ for k = 1:numel(IAValues)
 end
 
 fprintf('[');
-fprintf('%g, ', POptimization(1:end-1));
-fprintf('%g]\n', POptimization(end));
+fprintf('%g, ', QOptimization(1:end-1));
+fprintf('%g]\n', QOptimization(end));
 
 function err = MzExperimental_all(P, Q, L, FZ, IA, alpha, FYexp, MzExp)
     MzModel = pacejkaMZ(P, Q, L, FZ, IA, alpha, FYexp);

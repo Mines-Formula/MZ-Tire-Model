@@ -44,8 +44,9 @@ P0(12) = 1.0; % Cr
 P0(13) = 0.01; % Dr
 
 L = ones(1,8);
+Q = zeros(1,24); % <-- Added: placeholder Q for pacejkaMZ compatibility
 
-objFun = @(P) MzExperimental_all(P, L, FZAll, IAAll, alphaAll, FYAll, MzAll);
+objFun = @(P) MzExperimental_all(P, Q, L, FZAll, IAAll, alphaAll, FYAll, MzAll);
 options = optimoptions('lsqnonlin', 'Display', 'iter', 'MaxFunctionEvaluations', 30000, 'TolFun', 1e-8, 'TolX', 1e-8);
 
 lb = -Inf(size(P0));
@@ -58,7 +59,7 @@ POptimization = lsqnonlin(objFun, P0, lb, ub, options);
 disp('Optimized Mz Parameters:');
 disp(POptimization);
 
-MzPredicted = pacejkaMZ(POptimization, L, FZAll, IAAll, alphaAll, FYAll);
+MzPredicted = pacejkaMZ(POptimization, Q, L, FZAll, IAAll, alphaAll, FYAll);
 
 rmse = sqrt(mean((MzAll - MzPredicted).^2));
 fprintf('Overall RMSE (Mz): %.4f Nm\n', rmse);
@@ -79,10 +80,10 @@ for k = 1:numel(IAValues)
 
         scatter(rad2deg(alphaAll(idx)), MzAll(idx), 6, colors(i,:), 'filled', 'DisplayName', sprintf('Exp FZ=%d', FZBins(i)));
 
-        [alphaSort, ord] = sort(alphaAll(id));
-        MzFit = pacejkaMz(POptimization, L, FZAll(idx), IAAll(idx), alphaSort, FYAll(idx));
+        [alphaSort, ord] = sort(alphaAll(idx));
+        MzFit = pacejkaMZ(POptimization, Q, L, FZAll(idx), IAAll(idx), alphaSort, FYAll(idx));
 
-        plot(rad2deg(alphaSort), MZFit, 'Color', colors(i,:), 'LineWidth', 1.5, 'DisplayName', sprintf('Fit FZ=%d', FZBins(i)));
+        plot(rad2deg(alphaSort), MzFit, 'Color', colors(i,:), 'LineWidth', 1.5, 'DisplayName', sprintf('Fit FZ=%d', FZBins(i)));
     end
 
     title(sprintf('Pacejka Mz Fit - IA = %d (RMSE = %.3f)', IAValues(k), rmse));
@@ -92,10 +93,10 @@ for k = 1:numel(IAValues)
 end
 
 fprintf('[');
-fprintf('%g, ', POtimization(1:end-1));
-fprint('%g]\n', POptimization(end));
+fprintf('%g, ', POptimization(1:end-1));
+fprintf('%g]\n', POptimization(end));
 
-function err = MzExperimental_all(P, L, FZ, IA, alpha, FYexp, MzExp)
-    MzModel = pacejkaMZ(P, L, FZ, IA, alpha, FYexp);
+function err = MzExperimental_all(P, Q, L, FZ, IA, alpha, FYexp, MzExp)
+    MzModel = pacejkaMZ(P, Q, L, FZ, IA, alpha, FYexp);
     err = MzModel - MzExp;
 end

@@ -1,9 +1,10 @@
 clc, clearvars, close all
 
 data0 = readtable('data/Outputs/R20Round4&5/R20MZ_combined_IA-0_filtered.csv');
-data2 = readtable('data/Outputs/R20Round4&5/R20MZ_combined_IA-0_filtered.csv');
-data4 = readtable('data/Outputs/R20Round4&5/R20MZ_combined_IA-0_filtered.csv');
-data  = [data0; data2; data4];
+%data2 = readtable('data/Outputs/R20Round4&5/R20MZ_combined_IA-0_filtered.csv');
+%data4 = readtable('data/Outputs/R20Round4&5/R20MZ_combined_IA-0_filtered.csv');
+%data  = [data0; data2; data4];
+data = data0;
 
 %These are different than the FY optimizer so pay attention
 IA = data{:,3};
@@ -36,15 +37,10 @@ end
 alphaAll = deg2rad(alphaAll);
 IAAll = deg2rad(IAAll);
 
-P0 = zeros(1, 15);
-P0(1) = 250; % FZ0
-P0(4) = 1.2; % Ct
-P0(5) = 0.15; % Dt
-P0(12) = 1.0; % Cr
-P0(13) = 0.01; % Dr
-
+P0 = [250, 1.4, 2.4, -0.25, 3, -0.1, -1.5, 0, 0, -30.5, 1.15, 1, 0, 0, -0.128, 0, 0, 0, 1.43];
 L = ones(1,8);
-Q = zeros(1,24); % <-- Added: placeholder Q for pacejkaMZ compatibility
+
+Q = [0.007, -0.002, 0.147, 0.004, 8.964, -1.106, -0.842, 0, -0.227, 1.180, 0.1, -0.001, 0.007, 13.05, -1.609, -0.359, 0, 0.174, -0.896, 0, -0.008, 0, -0.296, -0.009]; % Added: placeholder Q for pacejkaMZ compatibility
 
 objFun = @(P) MzExperimental_all(P, Q, L, FZAll, IAAll, alphaAll, FYAll, MzAll);
 options = optimoptions('lsqnonlin', 'Display', 'iter', 'MaxFunctionEvaluations', 30000, 'TolFun', 1e-8, 'TolX', 1e-8);

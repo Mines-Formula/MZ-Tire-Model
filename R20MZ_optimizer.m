@@ -88,6 +88,34 @@ for k = 1:numel(IAValues)
     legend('Location', 'best');
 end
 
+%Brennan's Graph
+FZTarget = 200;
+figure;
+hold on;
+grid on;
+title(sprintf('Pacejka Mz Fit - FZ = %d flb (All IA)', FZTarget));
+xlabel('Slip Angle [deg]');
+ylabel('Aligning Torque Mz');
+
+IAValues = [0, 2, 4];
+colors = lines(numel(IAValues));
+
+for k = 1:numel(IAValues)
+    thisIA = deg2rad(IAValues(k));
+    idx = (abs(IAAll - thisIA) < 1e-6) & (FZAll == FZTarget);
+
+    if any(idx)
+
+        scatter(rad2deg(alphaAll(idx)), MzAll(idx), 8, colors(k,:), 'filled', 'DisplayName', sprintf('Exp IA=%d', IAValues(k)));
+
+        [alphaSort, ord] = sort(alphaAll(idx));
+        MzFit = pacejkaMZ(P_fixed, QOptimization, L, FZAll(idx), IAAll(idx), alphaSort, FYAll(idx));
+        plot(rad2deg(alphaSort), MzFit, 'Color', colors(k,:), 'LineWidth', 1.5, 'DisplayName', sprintf('Fit IA=%d', IAValues(k)));
+    end
+end
+
+legend('Location', 'best');
+
 fprintf('[');
 fprintf('%g, ', QOptimization(1:end-1));
 fprintf('%g]\n', QOptimization(end));

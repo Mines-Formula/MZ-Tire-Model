@@ -37,23 +37,26 @@ end
 alphaAll = deg2rad(alphaAll);
 IAAll = deg2rad(IAAll);
 
-P0 = [250, 1.4, 2.4, -0.25, 3, -0.1, -1.5, 0, 0, -30.5, 1.15, 1, 0, 0, -0.128, 0, 0, 0, 1.43];
+P_fixed = [250, 1.4, 2.4, -0.25, 3, -0.1, -1.5, 0, 0, -30.5, 1.15, 1, 0, 0, -0.128, 0, 0, 0, 1.43];
 L = ones(1,8);
 
-Q = [0.007, -0.002, 0.147, 0.004, 8.964, -1.106, -0.842, 0, -0.227, 1.180, 0.1, -0.001, 0.007, 13.05, -1.609, -0.359, 0, 0.174, -0.896, 0, -0.008, 0, -0.296, -0.009]; % Added: placeholder Q for pacejkaMZ compatibility
+% Initial Q guess
+Q0 = [0.007, -0.002, 0.147, 0.004, 8.964, -1.106, -0.842, 0, -0.227, 1.180, ...
+      0.1, -0.001, 0.007, 13.05, -1.609, -0.359, 0, 0.174, -0.896, 0, ...
+     -0.008, 0, -0.296, -0.009];
 
-objFun = @(P) MzExperimental_all(P, Q, L, FZAll, IAAll, alphaAll, FYAll, MzAll);
-options = optimoptions('lsqnonlin', 'Display', 'iter', 'MaxFunctionEvaluations', 30000, 'TolFun', 1e-8, 'TolX', 1e-8);
+objFun = @(Q) MzExperimental_all(P_fixed, Q, L, FZAll, IAAll, alphaAll, FYAll, MzAll);
 
-lb = -Inf(size(P0));
-ub = Inf(size(P0));
+options = optimoptions('lsqnonlin', 'Display', 'iter', ...
+    'MaxFunctionEvaluations', 30000, 'TolFun', 1e-8, 'TolX', 1e-8);
 
-lb(1) = 250;
-ub(1) = 250;
+lb = -Inf(size(Q0));
+ub = Inf(size(Q0));
 
-POptimization = lsqnonlin(objFun, P0, lb, ub, options);
-disp('Optimized Mz Parameters:');
-disp(POptimization);
+QOptimization = lsqnonlin(objFun, Q0, lb, ub, options);
+
+disp('Optimized Q (Mz) Parameters:');
+disp(QOptimization);
 
 MzPredicted = pacejkaMZ(POptimization, Q, L, FZAll, IAAll, alphaAll, FYAll);
 

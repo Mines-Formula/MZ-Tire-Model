@@ -1,7 +1,7 @@
 # MZ self aligning torque tire simulation
 Simulate the self aligning force values of the tires based on pacejak tire coefficients. Coefficients are found via optimizing the coefficients based on tire test data using least squared optimization.
 
-Two tires are used by the club: LC0 and R20 Hoosier tires, and are simulated here.
+Two tires are used by the club: LC0 and R20 Hoosier tires, R20 is the focus for this simulation.
 
 # Architecture
 ![Current architecture diagram](current.drawio.svg)

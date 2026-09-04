@@ -1,15 +1,15 @@
 clc, clearvars, clear all
 
-dataFolder = '/Users/Blanchards1/Documents/FormulaSim/Output/R20Round4&5';
+dataFolder = 'data/Outputs/R20Round4&5';
 
-csvFiles = dir(fullfile(dataFolder, "R20_FZ_*.csv"));
+csvFiles = dir(fullfile(dataFolder, "R20MZ_FZ_*_IA-4.csv"));
 
 for i = 1:numel(csvFiles)
     curFile = fullfile(csvFiles(i).folder, csvFiles(i).name);
     disp("Processing " + csvFiles(i).name);
 
     table = readtable(curFile);
-    varNames = ["RoadSpeed", "TirePressure", "InclinationAngle", "NormalForce", "SlipAngle", "ElapsedTime", "LateralForce", "Index"];
+    varNames = ["RoadSpeed", "TirePressure", "InclinationAngle", "NormalForce", "SlipAngle", "ElapsedTime", "AligningTorque", "LateralForce", "Index"];
     table = table(:, varNames);
 
     table.RoadSpeed = round(table.RoadSpeed);
@@ -17,7 +17,7 @@ for i = 1:numel(csvFiles)
     table.InclinationAngle = floor(table.InclinationAngle * 10) / 10;
 
     table = sortrows(table, ["RoadSpeed", "TirePressure", "InclinationAngle"]);
-    filteredTable = table(table.InclinationAngle == 0 & table.RoadSpeed == 25 & table.TirePressure == 12, :);
+    filteredTable = table(table.InclinationAngle == 4 & table.RoadSpeed == 25 & table.TirePressure == 12, :);
 
     filteredTable = sortrows(filteredTable, "ElapsedTime");
 
@@ -33,20 +33,22 @@ for i = 1:numel(csvFiles)
     NF = filteredTable.NormalForce;
     SA = filteredTable.SlipAngle;
     CF = filteredTable.LateralForce;
+    MZ = filteredTable.AligningTorque;
 
     plot(t, NF, 'b-', 'LineWidth', 1.5); hold on;
     plot(t, SA, 'r-', 'LineWidth', 1.5);
     plot(t, CF, 'g-', 'LineWidth', 1.5);
+    plot(t, MZ, 'y-', 'LineWidth', 1.5);
     hold off;
 
     grid on;
     xlabel('Elapsed Time (s)');
     ylabel('Value');
     title(strrep(outName, '_', '\_'));
-    legend('Normal Force (N)', 'Slip Angle (deg)', 'Lateral Force (N)', 'Location', 'best');
+    legend('Normal Force (N)', 'Slip Angle (deg)', 'Lateral Force (N)', 'Aligning Torque', 'Location', 'best');
 
     saveas(gcf, fullfile(dataFolder, sprintf('%s_diagnostic_plot.png', name)));
-    close(gcf);
+    %close(gcf);
 
     disp("Plot saved: " + name + "_diagnostic_plot.png");
 end

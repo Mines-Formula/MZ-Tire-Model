@@ -1,26 +1,26 @@
-clc, clearvars, clear all
+function combiner()
+    dataFolder = 'data/Outputs/R20Round4&5';
 
-dataFolder = 'data/Outputs/R20Round4&5';
+    filteredFiles = dir(fullfile(dataFolder, 'R20MZ_FZ_*_IA-4_filtered.csv'));
 
-filteredFiles = dir(fullfile(dataFolder, 'R20MZ_FZ_*_IA-4_filtered.csv'));
+    combinedTable = table();
 
-combinedTable = table();
+    for i = 1:numel(filteredFiles)
+        curFile = fullfile(filteredFiles(i).folder, filteredFiles(i).name);
+        disp("Adding " + filteredFiles(i).name);
 
-for i = 1:numel(filteredFiles)
-    curFile = fullfile(filteredFiles(i).folder, filteredFiles(i).name);
-    disp("Adding " + filteredFiles(i).name);
+        tempTable = readtable(curFile);
 
-    tempTable = readtable(curFile);
+        [~, name, ~] = fileparts(filteredFiles(i).name);
+        tempTable.SourceFile = repmat({name}, height(tempTable), 1);
 
-    [~, name, ~] = fileparts(filteredFiles(i).name);
-    tempTable.SourceFile = repmat({name}, height(tempTable), 1);
+        combinedTable = [combinedTable; tempTable];
+    end
 
-    combinedTable = [combinedTable; tempTable];
+    combinedTable = sortrows(combinedTable, 'NormalForce');
+
+    outPath = fullfile(dataFolder, 'R20MZ_combined_IA-4_filtered.csv');
+    writetable(combinedTable, outPath);
+
+    disp("Combined filtered data saved as: " + outPath);
 end
-
-combinedTable = sortrows(combinedTable, 'NormalForce');
-
-outPath = fullfile(dataFolder, 'R20MZ_combined_IA-4_filtered.csv');
-writetable(combinedTable, outPath);
-
-disp("Combined filtered data saved as: " + outPath);

@@ -1,56 +1,56 @@
-clc, clearvars, clear all
+function organize()
+    dataFolder = 'data/Outputs/R20Round4&5';
 
-dataFolder = 'data/Outputs/R20Round4&5';
+    csvFiles = dir(fullfile(dataFolder, "R20MZ_FZ_*_IA-4.csv"));
 
-csvFiles = dir(fullfile(dataFolder, "R20MZ_FZ_*_IA-4.csv"));
+    for i = 1:numel(csvFiles)
+        curFile = fullfile(csvFiles(i).folder, csvFiles(i).name);
+        disp("Processing " + csvFiles(i).name);
 
-for i = 1:numel(csvFiles)
-    curFile = fullfile(csvFiles(i).folder, csvFiles(i).name);
-    disp("Processing " + csvFiles(i).name);
+        table = readtable(curFile);
+        varNames = ["RoadSpeed", "TirePressure", "InclinationAngle", "NormalForce", "SlipAngle", "ElapsedTime", "AligningTorque", "LateralForce", "Index"];
+        table = table(:, varNames);
 
-    table = readtable(curFile);
-    varNames = ["RoadSpeed", "TirePressure", "InclinationAngle", "NormalForce", "SlipAngle", "ElapsedTime", "AligningTorque", "LateralForce", "Index"];
-    table = table(:, varNames);
+        table.RoadSpeed = round(table.RoadSpeed);
+        table.TirePressure = floor(table.TirePressure);
+        table.InclinationAngle = floor(table.InclinationAngle * 10) / 10;
 
-    table.RoadSpeed = round(table.RoadSpeed);
-    table.TirePressure = floor(table.TirePressure);
-    table.InclinationAngle = floor(table.InclinationAngle * 10) / 10;
+        table = sortrows(table, ["RoadSpeed", "TirePressure", "InclinationAngle"]);
+        filteredTable = table(table.InclinationAngle == 4 & table.RoadSpeed == 25 & table.TirePressure == 12, :);
 
-    table = sortrows(table, ["RoadSpeed", "TirePressure", "InclinationAngle"]);
-    filteredTable = table(table.InclinationAngle == 4 & table.RoadSpeed == 25 & table.TirePressure == 12, :);
+        filteredTable = sortrows(filteredTable, "ElapsedTime");
 
-    filteredTable = sortrows(filteredTable, "ElapsedTime");
+        [~, name, ~] = fileparts(csvFiles(i).name);
+        outName = sprintf('%s_filtered.csv', name);
+        outPath = fullfile(dataFolder, outName);
+        writetable(filteredTable, outPath);
 
-    [~, name, ~] = fileparts(csvFiles(i).name);
-    outName = sprintf('%s_filtered.csv', name);
-    outPath = fullfile(dataFolder, outName);
-    writetable(filteredTable, outPath);
+        disp("Saved filtered version: " + outName);
 
-    disp("Saved filtered version: " + outName);
+        figure('Name', outName, 'NumberTitle', 'off');
+        t = filteredTable.ElapsedTime;
+        NF = filteredTable.NormalForce;
+        SA = filteredTable.SlipAngle;
+        CF = filteredTable.LateralForce;
+        MZ = filteredTable.AligningTorque;
 
-    figure('Name', outName, 'NumberTitle', 'off');
-    t = filteredTable.ElapsedTime;
-    NF = filteredTable.NormalForce;
-    SA = filteredTable.SlipAngle;
-    CF = filteredTable.LateralForce;
-    MZ = filteredTable.AligningTorque;
+        plot(t, NF, 'b-', 'LineWidth', 1.5); hold on;
+        plot(t, SA, 'r-', 'LineWidth', 1.5);
+        plot(t, CF, 'g-', 'LineWidth', 1.5);
+        plot(t, MZ, 'y-', 'LineWidth', 1.5);
+        hold off;
 
-    plot(t, NF, 'b-', 'LineWidth', 1.5); hold on;
-    plot(t, SA, 'r-', 'LineWidth', 1.5);
-    plot(t, CF, 'g-', 'LineWidth', 1.5);
-    plot(t, MZ, 'y-', 'LineWidth', 1.5);
-    hold off;
+        grid on;
+        xlabel('Elapsed Time (s)');
+        ylabel('Value');
+        title(strrep(outName, '_', '\_'));
+        legend('Normal Force (N)', 'Slip Angle (deg)', 'Lateral Force (N)', 'Aligning Torque', 'Location', 'best');
 
-    grid on;
-    xlabel('Elapsed Time (s)');
-    ylabel('Value');
-    title(strrep(outName, '_', '\_'));
-    legend('Normal Force (N)', 'Slip Angle (deg)', 'Lateral Force (N)', 'Aligning Torque', 'Location', 'best');
+        saveas(gcf, fullfile(dataFolder, sprintf('%s_diagnostic_plot.png', name)));
+        %close(gcf);
 
-    saveas(gcf, fullfile(dataFolder, sprintf('%s_diagnostic_plot.png', name)));
-    %close(gcf);
+        disp("Plot saved: " + name + "_diagnostic_plot.png");
+    end
 
-    disp("Plot saved: " + name + "_diagnostic_plot.png");
+    disp("All FZ bins processed, filtered, and plotted successfully.");
 end
-
-disp("All FZ bins processed, filtered, and plotted successfully.");
